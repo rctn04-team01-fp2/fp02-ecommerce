@@ -48,8 +48,6 @@ module.exports = {
       baseWhite: '#FFFFFF',
 
       dividerBlack: '#1A1A1A',
-      dividerGrey: '#CCCCCC',
-
       overlayDark: '#B0AFAF80',
       overlayLight: '#FFFFFF80',
 
@@ -57,6 +55,7 @@ module.exports = {
       buttonBgDisabled: '#CEC5FC',
 
       lilac: '#DAD9F9',
+      purple: '6C63FF',
       shadowPurple: '#6c63ff40',
     },
     spacing: {
@@ -68,7 +67,9 @@ module.exports = {
       32: '32px',
       64: '64px',
     },
-    fontFamily: ['DM Sans', 'Poppins', 'sans-serif'],
+    fontFamily: {
+      sans: ['DM Sans', 'Poppins', 'sans-serif'],
+    },
   },
   plugins: [],
 };
