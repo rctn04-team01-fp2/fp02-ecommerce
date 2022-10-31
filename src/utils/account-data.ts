@@ -25,6 +25,7 @@ export const userData = [
     },
     phone: '1-570-236-7033',
     __v: 0,
+    token: 'jfdjafkladjkajfklfjdsajdks',
   },
   {
     address: {
@@ -47,6 +48,7 @@ export const userData = [
     },
     phone: '1-570-236-7033',
     __v: 0,
+    token: 'hjdfsahwekjfklddllsls',
   },
   {
     address: {
@@ -69,6 +71,7 @@ export const userData = [
     },
     phone: '1-567-094-1345',
     __v: 0,
+    token: 'hdfsajkhfjhajahkfdh',
   },
   {
     address: {
@@ -91,6 +94,7 @@ export const userData = [
     },
     phone: '1-765-789-6734',
     __v: 0,
+    token: 'ahfdpoqwkdjflwiiow',
   },
   {
     address: {
@@ -113,6 +117,7 @@ export const userData = [
     },
     phone: '1-956-001-1945',
     __v: 0,
+    token: '8oqwuqwpidopwiowlwowo',
   },
   {
     address: {
@@ -135,6 +140,7 @@ export const userData = [
     },
     phone: '1-678-345-9856',
     __v: 0,
+    token: 'eowywqiuoperuieuueiwo',
   },
   {
     address: {
@@ -157,6 +163,7 @@ export const userData = [
     },
     phone: '1-123-943-0563',
     __v: 0,
+    token: 'ajdfoipqiopriewiokdllsdk',
   },
   {
     address: {
@@ -179,6 +186,7 @@ export const userData = [
     },
     phone: '1-478-001-0890',
     __v: 0,
+    token: 'uewoiquiouefiokdlajfdk',
   },
   {
     address: {
@@ -201,6 +209,7 @@ export const userData = [
     },
     phone: '1-678-456-1934',
     __v: 0,
+    token: 'apowiopqriweopqopieoldl',
   },
   {
     address: {
@@ -223,5 +232,6 @@ export const userData = [
     },
     phone: '1-104-001-4567',
     __v: 0,
+    token: 'ioweqproeiwqpolassjska',
   },
 ];
