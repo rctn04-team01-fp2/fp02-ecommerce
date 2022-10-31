@@ -2,24 +2,50 @@ import * as React from 'react';
 
 import { ProductModel } from '../features/product/types';
 import * as Icons from 'react-feather';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../features/user/user-slice';
+import { useNavigate } from 'react-router-dom';
 
 export default function ProductCard(props: ProductModel) {
   const {
     title,
     category,
     description,
-    // id,
+    id,
     image,
     price,
     qty: productQty,
   } = props;
+  const navigate = useNavigate();
+  const { user, isUser } = useSelector(selectUser);
 
   const [qty, setQty] = React.useState(0);
-  const onDecrease = () => setQty((prev) => prev - 1);
-  const onIncrease = () => setQty((prev) => prev + 1);
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQty(parseFloat(e.target.value));
-  };
+
+  const onDecrease = React.useCallback(() => setQty((prev) => prev - 1), []);
+  const onIncrease = React.useCallback(() => setQty((prev) => prev + 1), []);
+
+  const onChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setQty(parseFloat(e.target.value));
+    },
+    [],
+  );
+
+  const onAddCart = React.useCallback(() => {
+    if (!!user && isUser) {
+      const _value = localStorage.getItem(user.email);
+      const _cart = _value ? JSON.parse(_value) : [];
+      const indexFoundCart = _cart.findIndex(
+        (item: ProductModel) => item.id === id,
+      );
+      indexFoundCart >= 0
+        ? (_cart[indexFoundCart].qty = qty)
+        : _cart.push({ id, qty });
+      localStorage.setItem(user.email, _cart);
+    } else {
+      navigate('/login');
+    }
+  }, []);
 
   return (
     <div className="flex flex-col shadow-sm hover:shadow-lg shadow-shadowPurple justify-between p-64 m-64 lg:flex-row gap-64">
@@ -88,7 +114,10 @@ export default function ProductCard(props: ProductModel) {
             Rp {price * qty}
           </p>
         </div>
-        <button className="font-sans font-bold text-base text-baseWhite bg-purple hover:opacity-80 px-64 py-8 rounded-md border-none w-full  md:w-fit">
+        <button
+          onClick={onAddCart}
+          className="font-sans font-bold text-base text-baseWhite bg-purple hover:opacity-80 px-64 py-8 rounded-md border-none w-full  md:w-fit"
+        >
           Add to Card
         </button>
       </div>
