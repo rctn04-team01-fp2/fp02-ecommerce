@@ -2,6 +2,9 @@
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
+    minHeight: {
+      1: '30%',
+    },
     extend: {},
     screens: {
       xs: '375px', //mobile small
