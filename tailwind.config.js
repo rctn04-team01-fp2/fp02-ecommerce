@@ -55,7 +55,7 @@ module.exports = {
       buttonBgDisabled: '#CEC5FC',
 
       lilac: '#DAD9F9',
-      purple: '6C63FF',
+      purple: '#6C63FF',
       shadowPurple: '#6c63ff40',
     },
     spacing: {
