@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import HomePage from '../pages';
 import { Cart } from '../pages/cart';
+import ExamplePage from '../pages/examples';
 import LoginPage from '../pages/login';
 import { NotFound } from '../pages/not-found';
 import { ProductPage } from '../pages/product';
@@ -14,6 +15,7 @@ export const GlobalRoutes = () => {
       <Route path="*" element={<NotFound />} />
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/example" element={<ExamplePage />} />
       <Route element={<PrivateRoutes />}>
         <Route path="/products" element={<ProductsPage />}>
           <Route path=":productId" element={<ProductPage />} />

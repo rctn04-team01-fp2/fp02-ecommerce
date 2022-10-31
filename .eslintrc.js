@@ -27,5 +27,6 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/strict-boolean-expressions': 'off',
     '@typescript-eslint/indent': 'off',
+    '@typescript-eslint/no-unused-vars': 'warn',
   },
 };

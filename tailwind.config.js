@@ -57,6 +57,7 @@ module.exports = {
       buttonBgDisabled: '#CEC5FC',
 
       lilac: '#DAD9F9',
+      purple: '#6C63FF',
       shadowPurple: '#6c63ff40',
     },
     spacing: {
@@ -68,7 +69,9 @@ module.exports = {
       32: '32px',
       64: '64px',
     },
-    fontFamily: ['DM Sans', 'Poppins', 'sans-serif'],
+    fontFamily: {
+      sans: ['DM Sans', 'Poppins', 'sans-serif'],
+    },
   },
   plugins: [],
 };
