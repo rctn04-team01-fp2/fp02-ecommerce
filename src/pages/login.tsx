@@ -11,8 +11,7 @@ export default function LoginPage() {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const values = { email, password };
-    console.log(values);
-    dispatch(login({ email, password }));
+    dispatch(login(values));
   };
 
   return (

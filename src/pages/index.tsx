@@ -23,6 +23,12 @@ export default function HomePage() {
               A collection of clothes with cotemporary styles and trends that
               make you look even cooler
             </div>
+            <button
+              className="font-sans font-bold text-base text-baseWhite bg-purple bg-opacity-80 hover:opacity-80 px-8 py-8 rounded-md border-none w-fit"
+              onClick={() => navigate('/login')}
+            >
+              Explore More
+            </button>
           </div>
           <img
             src="/background-landing.svg"
