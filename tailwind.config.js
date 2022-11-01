@@ -2,6 +2,9 @@
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
+    minHeight: {
+      1: '30%',
+    },
     extend: {},
     screens: {
       xs: '375px', //mobile small
@@ -48,8 +51,6 @@ module.exports = {
       baseWhite: '#FFFFFF',
 
       dividerBlack: '#1A1A1A',
-      dividerGrey: '#CCCCCC',
-
       overlayDark: '#B0AFAF80',
       overlayLight: '#FFFFFF80',
 
@@ -71,6 +72,15 @@ module.exports = {
     },
     fontFamily: {
       sans: ['DM Sans', 'Poppins', 'sans-serif'],
+    },
+    fontSize: {
+      brand: ['40px', '50px'],
+      sm: '12px',
+    },
+    maxWidth: {
+      '1/2': '50%',
+      '2/6': '33%',
+      '2/5': '42%',
     },
   },
   plugins: [],
