@@ -116,7 +116,7 @@ export default function ProductCard(props: ProductModel) {
         </div>
         <button
           onClick={onAddCart}
-          className="font-sans font-bold text-base text-baseWhite bg-purple hover:opacity-80 px-64 py-8 rounded-md border-none w-full  md:w-fit"
+          className="font-sans font-bold text-base text-baseWhite bg-purple bg-opacity-80 hover:opacity-80 px-64 py-8 rounded-md border-none w-full  md:w-fit"
         >
           Add to Card
         </button>
