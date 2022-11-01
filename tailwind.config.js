@@ -73,6 +73,15 @@ module.exports = {
     fontFamily: {
       sans: ['DM Sans', 'Poppins', 'sans-serif'],
     },
+    fontSize: {
+      brand: ['40px', '50px'],
+      sm: '12px',
+    },
+    maxWidth: {
+      '1/2': '50%',
+      '2/6': '33%',
+      '2/5': '42%',
+    },
   },
   plugins: [],
 };
