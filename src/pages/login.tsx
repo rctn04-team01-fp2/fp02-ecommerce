@@ -64,7 +64,7 @@ export default function LoginPage() {
                 type="submit"
                 className="font-sans font-bold text-base text-baseWhite bg-purple bg-opacity-80 hover:opacity-80 px-64 py-8 border-none w-full   rounded-small"
               >
-                Add to Card
+                Sign In
               </button>
             </form>
           </div>
