@@ -4,6 +4,18 @@ module.exports = {
   theme: {
     minHeight: {
       1: '30%',
+      screen: '100vh',
+      full: '100%',
+    },
+    maxWidth: {
+      '1/2': '50%',
+      '2/6': '33%',
+      '2/5': '42%',
+      '7/12': '58%',
+      '1/12': '12%',
+    },
+    minWidth: {
+      '7/12': '58%',
     },
     extend: {},
     screens: {
@@ -66,8 +78,11 @@ module.exports = {
       2: '2px',
       4: '4px',
       8: '8px',
+      12: '12px',
       16: '16px',
+      25: '25px',
       32: '32px',
+      36: '36px',
       64: '64px',
     },
     fontFamily: {
@@ -76,11 +91,15 @@ module.exports = {
     fontSize: {
       brand: ['40px', '50px'],
       sm: '12px',
+      smd: '20px',
+      md: '24px',
+      xmd: '32px',
     },
-    maxWidth: {
-      '1/2': '50%',
-      '2/6': '33%',
-      '2/5': '42%',
+
+    borderRadius: {
+      normal: '10px',
+      md: '0.375rem',
+      small: '5px',
     },
   },
   plugins: [],
