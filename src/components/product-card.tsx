@@ -2,8 +2,6 @@ import * as React from 'react';
 
 import { ProductModel } from '../features/product/types';
 import * as Icons from 'react-feather';
-import { useSelector } from 'react-redux';
-import { selectUser } from '../features/user/user-slice';
 import { useNavigate } from 'react-router-dom';
 
 export default function ProductCard(props: ProductModel) {
@@ -17,7 +15,7 @@ export default function ProductCard(props: ProductModel) {
     qty: productQty,
   } = props;
   const navigate = useNavigate();
-  const { user, isUser } = useSelector(selectUser);
+  // const { user, isUser } = useSelector(selectUser);
 
   const [qty, setQty] = React.useState(0);
 
@@ -32,8 +30,8 @@ export default function ProductCard(props: ProductModel) {
   );
 
   const onAddCart = React.useCallback(() => {
-    if (!!user && isUser) {
-      const _value = localStorage.getItem(user.email);
+    // if (!!user && isUser) {
+      const _value = localStorage.getItem('adsfadsf');
       const _cart = _value ? JSON.parse(_value) : [];
       const indexFoundCart = _cart.findIndex(
         (item: ProductModel) => item.id === id,
@@ -41,10 +39,10 @@ export default function ProductCard(props: ProductModel) {
       indexFoundCart >= 0
         ? (_cart[indexFoundCart].qty = qty)
         : _cart.push({ id, qty });
-      localStorage.setItem(user.email, _cart);
-    } else {
+      // localStorage.setItem(user.email, _cart);
+    // } else {
       navigate('/login');
-    }
+    // }
   }, []);
 
   return (

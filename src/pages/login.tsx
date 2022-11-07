@@ -1,18 +1,23 @@
 import * as React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch } from '../app/store';
 import Input from '../components/input';
-import { login } from '../features/user/user-slice';
+import { login, selectUser } from '../features/user/user-slice';
 import useTextInput from '../hooks/use-text-input';
 
 export default function LoginPage() {
-  const [email, setEmail] = useTextInput('');
+  const [username, setUsername] = useTextInput('');
   const [password, setPassword] = useTextInput('');
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
+  const data = useSelector(selectUser);
+  console.log(data);
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const values = { email, password };
-    dispatch(login(values));
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    try {
+      e.preventDefault();
+      const values = { username, password };
+      await dispatch(login(values));
+    } catch {}
   };
 
   return (
@@ -43,13 +48,18 @@ export default function LoginPage() {
             <p className="font-bold text-xmd m-none mb-2 p-none">
               Welcome Back
             </p>
-            <form onSubmit={onSubmit} className="flex flex-col gap-16">
+            <form
+              onSubmit={(e) => {
+                void onSubmit(e);
+              }}
+              className="flex flex-col gap-16"
+            >
               <Input
-                label="Email"
-                name="email"
-                type="email"
-                value={email}
-                onChange={setEmail}
+                label="Email / Username"
+                name="username"
+                type="text"
+                value={username}
+                onChange={setUsername}
                 placeholder="Enter your email"
               />
               <Input
