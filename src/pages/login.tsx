@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../app/store';
 import Input from '../components/input';
-import { login, selectUser } from '../features/user/user-slice';
+import { selectUser, useLogin } from '../features/user/user-slice';
 import useTextInput from '../hooks/use-text-input';
 
 export default function LoginPage() {
@@ -16,7 +16,7 @@ export default function LoginPage() {
     try {
       e.preventDefault();
       const values = { username, password };
-      await dispatch(login(values));
+      await dispatch(useLogin(values));
     } catch {}
   };
 

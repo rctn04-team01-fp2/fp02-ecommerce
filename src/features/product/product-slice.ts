@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import productData from '../../utils/product-data';
 import { ProductModel } from './types';
@@ -10,12 +10,27 @@ export interface ProductState {
 
 //https://www.w3schools.com/js/js_random.asp
 //auto set qty
+async function fetchProducts() {
+  try {
+    const result = await fetch('https://fakestoreapi.com/products');
+    const response = await result.json();
+    return response;
+  } catch (e) {
+    return e;
+  }
+}
+
+export const useGetProducts = createAsyncThunk('login', async () => {
+  try {
+    const result = await fetchProducts();
+    return result;
+  } catch (e) {
+    return e;
+  }
+});
 
 const initialState: ProductState = {
-  products: productData.map((item) => ({
-    ...item,
-    qty: Math.floor(Math.random() * 100) + 1,
-  })),
+  products: [],
   sales: [],
 };
 
@@ -53,6 +68,24 @@ export const productSlice = createSlice({
         }
       });
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(useGetProducts.pending, (state) => {
+      return { products: [], sales: [] };
+    });
+    builder.addCase(
+      useGetProducts.fulfilled,
+      (state, action: PayloadAction<ProductModel[]>) => {
+        const products = action.payload.map((product) => {
+          const qty = Math.floor(Math.random() * 10) + 1;
+          return { ...product, qty };
+        });
+        return { products, sales: [] };
+      },
+    );
+    builder.addCase(useGetProducts.rejected, (state) => {
+      return { ...initialState };
+    });
   },
 });
 

@@ -11,6 +11,9 @@ async function fetchLogin(body: UserType) {
   try {
     const response = await fetch('https://fakestoreapi.com/auth/login', {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(body),
     });
     const result: { token: string } = await response.json();
@@ -20,7 +23,7 @@ async function fetchLogin(body: UserType) {
   }
 }
 
-export const login = createAsyncThunk('login', async (body: UserType) => {
+export const useLogin = createAsyncThunk('login', async (body: UserType) => {
   try {
     const result = await fetchLogin(body);
     return result;
@@ -44,14 +47,14 @@ export const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(login.pending, (state) => {
+    builder.addCase(useLogin.pending, (state) => {
       return { token: null, isAdmin: false, loading: true };
     });
-    builder.addCase(login.fulfilled, (state, action: any) => {
+    builder.addCase(useLogin.fulfilled, (state, action: any) => {
       const token = action.payload.token;
       return { token, isAdmin: false, loading: false };
     });
-    builder.addCase(login.rejected, (state) => {
+    builder.addCase(useLogin.rejected, (state) => {
       return { ...initialState };
     });
   },
