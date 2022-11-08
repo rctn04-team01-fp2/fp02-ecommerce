@@ -1,52 +1,65 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import { adminData, userData } from '../../utils/account-data';
 import { UserType } from './types';
-
 export interface UserState {
-  user: UserType | null;
+  token: string | null;
   isAdmin: boolean;
-  isUser: boolean;
+  loading: boolean;
 }
 
+async function fetchLogin(body: UserType) {
+  try {
+    const response = await fetch('https://fakestoreapi.com/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+    const result: { token: string } = await response.json();
+    return result;
+  } catch (e) {
+    return e;
+  }
+}
+
+export const useLogin = createAsyncThunk('login', async (body: UserType) => {
+  try {
+    const result = await fetchLogin(body);
+    return result;
+  } catch (e) {
+    return e;
+  }
+});
+
 const initialState: UserState = {
-  user: null,
+  token: null,
   isAdmin: false,
-  isUser: false,
+  loading: false,
 };
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    login: (state, action: PayloadAction<UserType>) => {
-      const { email, password } = action.payload;
-
-      const isAdmin =
-        adminData.email === email && adminData.password === password;
-
-      const isUser = !!userData.find(
-        (user) => user.email === email && user.password === password,
-      );
-
-      if (isAdmin) {
-        return {
-          ...state,
-          user: { email, password },
-          isAdmin: true,
-        };
-      } else if (isUser) {
-        return { ...state, user: { email, password }, isUser: true };
-      } else {
-        return { ...initialState };
-      }
-    },
-    logout: () => {
+    logout(state) {
       return { ...initialState };
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(useLogin.pending, (state) => {
+      return { token: null, isAdmin: false, loading: true };
+    });
+    builder.addCase(useLogin.fulfilled, (state, action: any) => {
+      const token = action.payload.token;
+      return { token, isAdmin: false, loading: false };
+    });
+    builder.addCase(useLogin.rejected, (state) => {
+      return { ...initialState };
+    });
+  },
 });
 
-export const { login, logout } = userSlice.actions;
+export const { logout } = userSlice.actions;
 export const selectUser = (state: RootState) => state.user;
 export default userSlice.reducer;
