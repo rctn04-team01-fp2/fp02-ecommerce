@@ -20,7 +20,7 @@ async function fetchProducts() {
   }
 }
 
-export const useGetProducts = createAsyncThunk('login', async () => {
+export const useGetProducts = createAsyncThunk('products', async () => {
   try {
     const result = await fetchProducts();
     return result;
@@ -72,8 +72,7 @@ export const productSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(useGetProducts.pending, (state) => {
       return { products: [], sales: [] };
-    });
-    builder.addCase(
+    }).addCase(
       useGetProducts.fulfilled,
       (state, action: PayloadAction<ProductModel[]>) => {
         const products = action.payload.map((product) => {
@@ -82,8 +81,7 @@ export const productSlice = createSlice({
         });
         return { products, sales: [] };
       },
-    );
-    builder.addCase(useGetProducts.rejected, (state) => {
+    ).addCase(useGetProducts.rejected, (state) => {
       return { ...initialState };
     });
   },

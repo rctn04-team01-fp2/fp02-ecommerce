@@ -7,8 +7,9 @@ export interface UserState {
   loading: boolean;
 }
 
-async function fetchLogin(body: UserType) {
-  try {
+export const useLogin = createAsyncThunk(
+  'login',
+  async (body: UserType): Promise<{ token: string }> => {
     const response = await fetch('https://fakestoreapi.com/auth/login', {
       method: 'POST',
       headers: {
@@ -18,19 +19,8 @@ async function fetchLogin(body: UserType) {
     });
     const result: { token: string } = await response.json();
     return result;
-  } catch (e) {
-    return e;
-  }
-}
-
-export const useLogin = createAsyncThunk('login', async (body: UserType) => {
-  try {
-    const result = await fetchLogin(body);
-    return result;
-  } catch (e) {
-    return e;
-  }
-});
+  },
+);
 
 const initialState: UserState = {
   token: null,
@@ -47,16 +37,14 @@ export const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(useLogin.pending, (state) => {
-      return { token: null, isAdmin: false, loading: true };
-    });
-    builder.addCase(useLogin.fulfilled, (state, action: any) => {
-      const token = action.payload.token;
-      return { token, isAdmin: false, loading: false };
-    });
-    builder.addCase(useLogin.rejected, (state) => {
-      return { ...initialState };
-    });
+    builder
+      .addCase(useLogin.pending, (state) => {
+        return { ...state, loading: true };
+      })
+      .addCase(useLogin.fulfilled, (state, action) => {
+        const token = action.payload.token;
+        return { loading: false, isAdmin: false, token };
+      });
   },
 });
 

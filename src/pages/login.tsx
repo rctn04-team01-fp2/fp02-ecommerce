@@ -4,21 +4,38 @@ import { AppDispatch } from '../app/store';
 import Input from '../components/input';
 import { selectUser, useLogin } from '../features/user/user-slice';
 import useTextInput from '../hooks/use-text-input';
+import useUser from '../hooks/use-user';
 
 export default function LoginPage() {
-  const [username, setUsername] = useTextInput('');
-  const [password, setPassword] = useTextInput('');
+  const [username, setUsername] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
+  const onChangeUsername = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setUsername(e.target.value);
+    },
+    [],
+  );
+  const onChangePassword = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setPassword(e.target.value);
+    },
+    [],
+  );
   const dispatch = useDispatch<AppDispatch>();
-  const data = useSelector(selectUser);
+  const data = useUser();
   console.log(data);
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    try {
+  const onSubmit = React.useCallback(
+    async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      const values = { username, password };
-      await dispatch(useLogin(values));
-    } catch {}
-  };
+      try {
+        const values = { username, password };
+        await dispatch(useLogin(values));
+      } catch {}
+    },
+    [],
+  );
 
   return (
     <main className="w-100 h-screen  px-25 py-25">
@@ -59,7 +76,7 @@ export default function LoginPage() {
                 name="username"
                 type="text"
                 value={username}
-                onChange={setUsername}
+                onChange={onChangeUsername}
                 placeholder="Enter your email"
               />
               <Input
@@ -67,7 +84,7 @@ export default function LoginPage() {
                 name="password"
                 type="password"
                 value={password}
-                onChange={setPassword}
+                onChange={onChangePassword}
                 placeholder="Enter your password"
               />
               <button

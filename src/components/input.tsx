@@ -6,7 +6,7 @@ interface Props {
   value: string;
   type: string;
   placeholder: string;
-  onChange: () => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 function Input(props: Props) {
   const { label, name, value, type, placeholder, onChange } = props;
@@ -19,7 +19,7 @@ function Input(props: Props) {
       <input
         type={type}
         value={value}
-        onChange={onChange}
+        onChange={(e) => onChange(e)}
         placeholder={placeholder}
         className="text-baseGrey text-normal font-smd py-8 px-8 border-baseGrey border-2 rounded-small w-100"
       />
