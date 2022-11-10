@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import productData from '../../utils/product-data';
 import { ProductModel } from './types';
 
 export interface ProductState {

@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../app/store';
 import Input from '../components/input';
-import { selectUser, useLogin } from '../features/user/user-slice';
-import useTextInput from '../hooks/use-text-input';
+import { useLogin } from '../features/user/user-slice';
 import useUser from '../hooks/use-user';
 
 export default function LoginPage() {
