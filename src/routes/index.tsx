@@ -33,7 +33,8 @@ export function GlobalRoutes() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/example" element={<ExamplePage />} />
       <Route element={<PrivateRoutes />}>
-        <Route path="/products" element={<ProductsPage />}>
+        <Route path="/products">
+          <Route index element={<ProductsPage />} />
           <Route path=":productId" element={<ProductPage />} />
         </Route>
         <Route path="/cart" element={<Cart />} />
