@@ -21,6 +21,7 @@ export default function LoginPage() {
     },
     [],
   );
+
   const dispatch = useDispatch<AppDispatch>();
   const data = useUser();
   console.log(data);
@@ -29,11 +30,10 @@ export default function LoginPage() {
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       try {
-        const values = { username, password };
-        await dispatch(useLogin(values));
+        await dispatch(useLogin({ username, password }));
       } catch {}
     },
-    [],
+    [username, password],
   );
 
   return (

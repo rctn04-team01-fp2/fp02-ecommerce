@@ -44,6 +44,9 @@ export const userSlice = createSlice({
       .addCase(useLogin.fulfilled, (state, action) => {
         const token = action.payload.token;
         return { loading: false, isAdmin: false, token };
+      })
+      .addCase(useLogin.rejected, (state, action) => {
+        return { ...initialState };
       });
   },
 });
