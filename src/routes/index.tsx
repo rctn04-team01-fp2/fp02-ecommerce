@@ -7,15 +7,15 @@ import {
   useGetProducts,
 } from '../features/product/product-slice';
 import HomePage from '../pages';
-import { Cart } from '../pages/cart';
+import Cart from '../pages/cart';
 import ExamplePage from '../pages/examples';
 import LoginPage from '../pages/login';
-import { NotFound } from '../pages/not-found';
-import { ProductPage } from '../pages/product';
+import NotFound from '../pages/not-found';
+import ProductPage from '../pages/product';
 import ProductsPage from '../pages/products';
-import { PrivateRoutes } from './private-routes';
+import PrivateRoutes from './private-routes';
 
-export const GlobalRoutes = () => {
+export function GlobalRoutes() {
   const dispatch = useDispatch<AppDispatch>();
   const { products } = useSelector(selectProducts);
   React.useEffect(() => {
@@ -33,11 +33,12 @@ export const GlobalRoutes = () => {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/example" element={<ExamplePage />} />
       <Route element={<PrivateRoutes />}>
-        <Route path="/products" element={<ProductsPage />}>
+        <Route path="/products">
+          <Route index element={<ProductsPage />} />
           <Route path=":productId" element={<ProductPage />} />
         </Route>
         <Route path="/cart" element={<Cart />} />
       </Route>
     </Routes>
   );
-};
+}

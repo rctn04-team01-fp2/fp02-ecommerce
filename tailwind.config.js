@@ -4,6 +4,8 @@ module.exports = {
   theme: {
     minHeight: {
       1: '30%',
+      '1/2': '50%',
+      '2/5': '42%',
       screen: '100vh',
       full: '100%',
     },
@@ -11,11 +13,23 @@ module.exports = {
       '1/2': '50%',
       '2/6': '33%',
       '2/5': '42%',
+      '2/8': '25%',
       '7/12': '58%',
       '1/12': '12%',
+      full: '100%',
     },
     minWidth: {
       '7/12': '58%',
+      '1/12': '12%',
+    },
+    maxHeight: {
+      '1/2': '50%',
+      '2/6': '33%',
+      '2/5': '42%',
+      '2/8': '25%',
+      '7/12': '58%',
+      '1/12': '12%',
+      full: '100%',
     },
     extend: {},
     screens: {
@@ -94,12 +108,18 @@ module.exports = {
       smd: '20px',
       md: '24px',
       xmd: '32px',
+      16: '16px',
     },
 
     borderRadius: {
       normal: '10px',
       md: '0.375rem',
       small: '5px',
+    },
+    boxShadow: {
+      hover: 'rgba(108, 99, 255, 0.2) 0px 4px 12px',
+      normal:
+        'rgba(108, 99, 255, 0.2)  0px 2px 5px -1px, rgba(108, 99, 255, 0.2)  0px 1px 3px -1px;',
     },
   },
   plugins: [],

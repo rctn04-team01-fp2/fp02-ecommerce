@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Outlet } from 'react-router-dom';
 import Navbar from '../components/nav-bar';
+import NotFound from '../pages/not-found';
 import { getToken } from '../helpers';
-import { NotFound } from '../pages/not-found';
 
-export const PrivateRoutes = () => {
+export default function PrivateRoutes() {
   const token = getToken();
 
   //eslint-disable-next-line
@@ -16,4 +16,4 @@ export const PrivateRoutes = () => {
   ) : (
     <NotFound />
   );
-};
+}
