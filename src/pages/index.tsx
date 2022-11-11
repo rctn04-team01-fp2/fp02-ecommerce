@@ -1,14 +1,10 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/nav-bar';
-import { getToken } from '../helpers';
 
 export default function HomePage() {
-  const token = getToken();
   const navigate = useNavigate();
-  React.useEffect(() => {
-    token && navigate('/products');
-  }, []);
+
   return (
     <>
       <Navbar auth={false} />
