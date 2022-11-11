@@ -1,14 +1,13 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/nav-bar';
-import { userData } from '../utils/account-data';
+import { getToken } from '../helpers';
 
 export default function HomePage() {
-  const token = localStorage.getItem('login-token');
-  const isAuth = userData.filter((user) => user.token === token);
+  const token = getToken();
   const navigate = useNavigate();
   React.useEffect(() => {
-    isAuth.length && navigate('/products');
+    token && navigate('/products');
   }, []);
   return (
     <>
