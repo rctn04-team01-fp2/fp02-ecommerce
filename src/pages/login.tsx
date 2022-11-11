@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { AppDispatch } from '../app/store';
 import Input from '../components/input';
 import { useLogin } from '../features/user/user-slice';
+import { getToken } from '../helpers';
 import useUser from '../hooks/use-user';
 
 export default function LoginPage() {
@@ -26,6 +27,11 @@ export default function LoginPage() {
   const dispatch = useDispatch<AppDispatch>();
   const data = useUser();
   const navigate = useNavigate();
+  const token = getToken();
+
+  React.useEffect(() => {
+    token && navigate('/products');
+  }, []);
   console.log(data);
 
   const onSubmit = React.useCallback(
