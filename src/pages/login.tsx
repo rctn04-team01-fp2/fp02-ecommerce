@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { AppDispatch } from '../app/store';
 import Input from '../components/input';
 import { useLogin } from '../features/user/user-slice';
@@ -24,6 +25,7 @@ export default function LoginPage() {
 
   const dispatch = useDispatch<AppDispatch>();
   const data = useUser();
+  const navigate = useNavigate();
   console.log(data);
 
   const onSubmit = React.useCallback(
@@ -31,6 +33,11 @@ export default function LoginPage() {
       e.preventDefault();
       try {
         await dispatch(useLogin({ username, password }));
+        localStorage.setItem(
+          process.env.REACT_APP_TOKEN_LOCAL_KEY as string,
+          JSON.stringify(data.token),
+        );
+        navigate('/products');
       } catch {}
     },
     [username, password],
