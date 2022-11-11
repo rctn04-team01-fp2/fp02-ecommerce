@@ -4,7 +4,7 @@ import { ProductModel } from '../features/product/types';
 import * as Icons from 'react-feather';
 import { useNavigate } from 'react-router-dom';
 
-export default function ProductCard(props: ProductModel) {
+export default function ProductDetailCard(props: ProductModel) {
   const {
     title,
     category,
@@ -31,17 +31,17 @@ export default function ProductCard(props: ProductModel) {
 
   const onAddCart = React.useCallback(() => {
     // if (!!user && isUser) {
-      const _value = localStorage.getItem('adsfadsf');
-      const _cart = _value ? JSON.parse(_value) : [];
-      const indexFoundCart = _cart.findIndex(
-        (item: ProductModel) => item.id === id,
-      );
-      indexFoundCart >= 0
-        ? (_cart[indexFoundCart].qty = qty)
-        : _cart.push({ id, qty });
-      // localStorage.setItem(user.email, _cart);
+    const _value = localStorage.getItem('adsfadsf');
+    const _cart = _value ? JSON.parse(_value) : [];
+    const indexFoundCart = _cart.findIndex(
+      (item: ProductModel) => item.id === id,
+    );
+    indexFoundCart >= 0
+      ? (_cart[indexFoundCart].qty = qty)
+      : _cart.push({ id, qty });
+    // localStorage.setItem(user.email, _cart);
     // } else {
-      navigate('/login');
+    navigate('/login');
     // }
   }, []);
 

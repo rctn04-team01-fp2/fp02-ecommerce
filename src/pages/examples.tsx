@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import ProductCard from '../components/product-card';
+import ProductDetailCard from '../components/product-detail-card';
 import { selectProducts } from '../features/product/product-slice';
 import * as React from 'react';
 
@@ -7,7 +7,7 @@ export default function ExamplePage() {
   const { products } = useSelector(selectProducts);
   return (
     <>
-      <ProductCard {...products[0]} />
+      <ProductDetailCard {...products[0]} />
     </>
   );
 }
