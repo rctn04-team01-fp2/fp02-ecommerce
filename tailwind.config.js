@@ -17,6 +17,13 @@ module.exports = {
     minWidth: {
       '7/12': '58%',
     },
+    maxHeight: {
+      '1/2': '50%',
+      '2/6': '33%',
+      '2/5': '42%',
+      '7/12': '58%',
+      '1/12': '12%',
+    },
     extend: {},
     screens: {
       xs: '375px', //mobile small
