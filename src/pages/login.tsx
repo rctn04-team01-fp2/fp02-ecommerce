@@ -29,8 +29,11 @@ export default function LoginPage() {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    isUser(getToken()!) && navigate('/products');
-    isAdmin(getToken()!) && navigate('/stock-update');
+    const role = getToken();
+    if (role) {
+      isUser(role) && navigate('/products');
+      isAdmin(role) && navigate('/stock-update');
+    }
   }, []);
   console.log(data);
   React.useEffect(() => {
