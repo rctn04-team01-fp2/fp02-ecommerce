@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { AppDispatch } from '../app/store';
 import Input from '../components/input';
 import { useLogin } from '../features/user/user-slice';
-import { getToken } from '../helpers';
+import { getToken, isAdmin, isUser } from '../helpers';
 import useUser from '../hooks/use-user';
 
 export default function LoginPage() {
@@ -27,23 +27,45 @@ export default function LoginPage() {
   const dispatch = useDispatch<AppDispatch>();
   const data = useUser();
   const navigate = useNavigate();
-  const token = getToken();
 
   React.useEffect(() => {
-    token && navigate('/products');
-  }, [token]);
+    const role = getToken();
+    if (role) {
+      isUser(role) && navigate('/products');
+      isAdmin(role) && navigate('/stock-update');
+    }
+  }, []);
+  console.log(data);
+  React.useEffect(() => {
+    if (data.token) {
+      localStorage.setItem(
+        process.env.REACT_APP_TOKEN_LOCAL_KEY as string,
+        JSON.stringify({
+          token: data.token,
+          role: 'user',
+        }),
+      );
+      navigate('/products');
+    }
+  }, [data.token]);
 
   const onSubmit = React.useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      try {
-        await dispatch(useLogin({ username, password }));
+      if (username === 'admin@bukapedia.com' && password === 'admin123') {
         localStorage.setItem(
           process.env.REACT_APP_TOKEN_LOCAL_KEY as string,
-          JSON.stringify(data.token),
+          JSON.stringify({
+            token: 'admin bukapedia ',
+            role: 'admin',
+          }),
         );
-        navigate('/products');
-      } catch {}
+        navigate('/stock-update');
+      } else {
+        try {
+          await dispatch(useLogin({ username, password }));
+        } catch {}
+      }
     },
     [username, password],
   );
