@@ -31,8 +31,7 @@ export default function LoginPage() {
 
   React.useEffect(() => {
     token && navigate('/products');
-  }, []);
-  console.log(data);
+  }, [token]);
 
   const onSubmit = React.useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {

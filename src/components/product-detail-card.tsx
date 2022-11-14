@@ -3,19 +3,28 @@ import * as React from 'react';
 import { ProductModel } from '../features/product/types';
 import * as Icons from 'react-feather';
 import { useNavigate } from 'react-router-dom';
+import { selectUser } from '../features/user/user-slice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addCart } from '../features/cart/cart-slice';
 
-export default function ProductDetailCard(props: ProductModel) {
+interface Props {
+  product: ProductModel;
+}
+
+export default function ProductDetailCard(props: Props) {
   const {
     title,
     category,
     description,
-    id,
+    // id,
     image,
     price,
     qty: productQty,
-  } = props;
+  } = props.product;
   const navigate = useNavigate();
-  // const { user, isUser } = useSelector(selectUser);
+
+  const { token, username } = useSelector(selectUser);
+  const dispatch = useDispatch();
 
   const [qty, setQty] = React.useState(0);
 
@@ -30,20 +39,13 @@ export default function ProductDetailCard(props: ProductModel) {
   );
 
   const onAddCart = React.useCallback(() => {
-    // if (!!user && isUser) {
-    const _value = localStorage.getItem('adsfadsf');
-    const _cart = _value ? JSON.parse(_value) : [];
-    const indexFoundCart = _cart.findIndex(
-      (item: ProductModel) => item.id === id,
-    );
-    indexFoundCart >= 0
-      ? (_cart[indexFoundCart].qty = qty)
-      : _cart.push({ id, qty });
-    // localStorage.setItem(user.email, _cart);
-    // } else {
-    navigate('/login');
-    // }
-  }, []);
+    if (token) {
+      const product = { ...props.product, qty };
+      dispatch(addCart({ username, product }));
+    } else {
+      navigate('/login');
+    }
+  }, [qty, username, props.product]);
 
   return (
     <div className="flex flex-col shadow-sm hover:shadow-lg shadow-shadowPurple  p-64 m-64 lg:flex-row gap-32">

@@ -16,7 +16,7 @@ export default function ProductPage() {
 
   return (
     <div>
-      <ProductDetailCard {...product} />
+      <ProductDetailCard product={product} />
     </div>
   );
 }

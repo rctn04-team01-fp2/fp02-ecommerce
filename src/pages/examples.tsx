@@ -7,7 +7,7 @@ export default function ExamplePage() {
   const { products } = useSelector(selectProducts);
   return (
     <>
-      <ProductDetailCard {...products[0]} />
+      <ProductDetailCard product={products[0]} />
     </>
   );
 }
