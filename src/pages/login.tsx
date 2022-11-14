@@ -33,18 +33,30 @@ export default function LoginPage() {
     token && navigate('/products');
   }, []);
   console.log(data);
+  React.useEffect(() => {
+    if (data.token) {
+      localStorage.setItem(
+        process.env.REACT_APP_TOKEN_LOCAL_KEY as string,
+        JSON.stringify(data.token),
+      );
+      navigate('/products');
+    }
+  }, [data.token]);
 
   const onSubmit = React.useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      try {
-        await dispatch(useLogin({ username, password }));
-        localStorage.setItem(
-          process.env.REACT_APP_TOKEN_LOCAL_KEY as string,
-          JSON.stringify(data.token),
-        );
-        navigate('/products');
-      } catch {}
+      if (username === 'admin@bukapedia.com' && password === 'admin123') {
+        navigate('/admin');
+      } else {
+        try {
+          await dispatch(useLogin({ username, password })).then(() =>
+            console.log(data),
+          );
+
+          // navigate('/products');
+        } catch {}
+      }
     },
     [username, password],
   );
