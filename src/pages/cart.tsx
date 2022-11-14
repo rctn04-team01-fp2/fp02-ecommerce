@@ -40,6 +40,7 @@ function CartItem(props: { cart: CartProductModel }) {
 
 export default function Cart() {
   const { username } = useUser();
+  // TODO - CART
   const { carts } = useCart({ username });
   const { onCheckout } = useCheckout({ username, carts });
 

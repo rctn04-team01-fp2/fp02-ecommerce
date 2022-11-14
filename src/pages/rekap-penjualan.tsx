@@ -3,6 +3,8 @@ import useSales from '../hooks/use-sales';
 
 export default function RekapPenjualan() {
   const { sales } = useSales();
+
+  // TODO - SALES
   console.log(sales);
   return <div>RekapPenjualan</div>;
 }
