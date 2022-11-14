@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { AppDispatch } from '../app/store';
 import Input from '../components/input';
 import { useLogin } from '../features/user/user-slice';
-import { getToken, isUser } from '../helpers';
+import { getToken, isAdmin, isUser } from '../helpers';
 import useUser from '../hooks/use-user';
 
 export default function LoginPage() {
@@ -29,7 +29,8 @@ export default function LoginPage() {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    isUser(getToken()!) ? navigate('/products') : navigate('/stock-update');
+    isUser(getToken()!) && navigate('/products');
+    isAdmin(getToken()!) && navigate('/stock-update');
   }, []);
   console.log(data);
   React.useEffect(() => {
