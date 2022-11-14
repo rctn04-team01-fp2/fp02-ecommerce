@@ -5,11 +5,12 @@ export interface UserState {
   token: string | null;
   isAdmin: boolean;
   loading: boolean;
+  username: string;
 }
 
 export const useLogin = createAsyncThunk(
   'login',
-  async (body: UserType): Promise<{ token: string }> => {
+  async (body: UserType): Promise<{ token: string; username: string }> => {
     const response = await fetch('https://fakestoreapi.com/auth/login', {
       method: 'POST',
       headers: {
@@ -18,7 +19,8 @@ export const useLogin = createAsyncThunk(
       body: JSON.stringify(body),
     });
     const result: { token: string } = await response.json();
-    return result;
+    const _result = { ...result, username: body.username };
+    return _result;
   },
 );
 
@@ -26,6 +28,7 @@ const initialState: UserState = {
   token: null,
   isAdmin: false,
   loading: false,
+  username: '',
 };
 
 export const userSlice = createSlice({
@@ -43,7 +46,12 @@ export const userSlice = createSlice({
       })
       .addCase(useLogin.fulfilled, (state, action) => {
         const token = action.payload.token;
-        return { loading: false, isAdmin: false, token };
+        return {
+          loading: false,
+          isAdmin: false,
+          token,
+          username: action.payload.username,
+        };
       })
       .addCase(useLogin.rejected, (state, action) => {
         return { ...initialState };

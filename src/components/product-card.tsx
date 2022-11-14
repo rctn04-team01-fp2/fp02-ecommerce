@@ -12,22 +12,35 @@ interface Props {
   data: Data;
 }
 export default function ProductCard(props: Props) {
-  const { image, category, title, price } = props.data;
+  const { image, category, title, price, id } = props.data;
   const navigate = useNavigate();
   return (
     <div
-      className=" p-2 max-w-1/12 min-w-2/6 rounded-normal shadow-normal hover:shadow-hover"
-      onClick={() => navigate(`/products/${title}`)}
+      className="max-w-2/8 min-w-2/6 h-fit rounded-normal shadow-normal hover:shadow-hover p-8 flex gap-12 flex-col relative "
+      style={{
+        width: '320px',
+      }}
+      onClick={() => navigate(`/products/${id}`)}
     >
       <img
         src={image}
         alt="product-image"
-        className="max-h-2/5 min-h-2/5 object-fill"
+        className="object-contain"
+        style={{
+          width: '300px',
+          height: '300px',
+          alignSelf: 'center',
+        }}
       />
-      <p className="bg-lilac w-fit pr-8 pl-2 capitalize text-purple">
+      <p
+        className="bg-lilac w-fit pr-8 pl-2 capitalize text-purple relative"
+        style={{ left: '-8px' }}
+      >
         {category}
       </p>
-      <p className="text-16 font-medium p-2">{title}</p>
+      <p className="text-16 font-medium p-2  text-ellipsis whitespace-nowrap overflow-hidden">
+        {title}
+      </p>
       <p>Rp. {price}</p>
     </div>
   );
