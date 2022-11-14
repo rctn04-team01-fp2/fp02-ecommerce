@@ -69,20 +69,23 @@ export const productSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(useGetProducts.pending, (state) => {
-      return { products: [], sales: [] };
-    }).addCase(
-      useGetProducts.fulfilled,
-      (state, action: PayloadAction<ProductModel[]>) => {
-        const products = action.payload.map((product) => {
-          const qty = Math.floor(Math.random() * 10) + 1;
-          return { ...product, qty };
-        });
-        return { products, sales: [] };
-      },
-    ).addCase(useGetProducts.rejected, (state) => {
-      return { ...initialState };
-    });
+    builder
+      .addCase(useGetProducts.pending, (state) => {
+        return { products: [], sales: [] };
+      })
+      .addCase(
+        useGetProducts.fulfilled,
+        (state, action: PayloadAction<ProductModel[]>) => {
+          const products = action.payload.map((product) => {
+            const qty = Math.floor(Math.random() * 10) + 1;
+            return { ...product, qty };
+          });
+          return { products, sales: [] };
+        },
+      )
+      .addCase(useGetProducts.rejected, (state) => {
+        return { ...initialState };
+      });
   },
 });
 
