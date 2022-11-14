@@ -46,21 +46,23 @@ export default function ProductDetailCard(props: ProductModel) {
   }, []);
 
   return (
-    <div className="flex flex-col shadow-sm hover:shadow-lg shadow-shadowPurple justify-between p-64 m-64 lg:flex-row gap-64">
-      <div className="flex justify-between flex-col gap-64">
-        <div className="bg-lilac p-16 leading-none text-purple text-center align-center justify-center max-w-fit">
+    <div className="flex flex-col shadow-sm hover:shadow-lg shadow-shadowPurple  p-64 m-64 lg:flex-row gap-32">
+      <div className="flex justify-between flex-col gap-64 flex-1">
+        <div className="bg-lilac p-16 leading-none text-purple text-center align-center justify-center max-w-1/2">
           {category}
         </div>
         <img
-          className="object-cover self-center"
+          className="object-contain"
           src={image}
           alt={title}
+          style={{
+            width: '325px',
+            height: '325px',
+          }}
           loading="lazy"
-          width="325"
-          height="325"
         />
       </div>
-      <div className="flex flex-col gap-16 justify-between">
+      <div className="flex flex-col gap-16 justify-between flex-1">
         <h2 className="font-sans font-bold text-xl  text-baseBlack md:text-5xl">
           {title}
         </h2>
