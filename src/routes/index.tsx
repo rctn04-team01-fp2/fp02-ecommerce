@@ -13,6 +13,8 @@ import LoginPage from '../pages/login';
 import NotFound from '../pages/not-found';
 import ProductPage from '../pages/product';
 import ProductsPage from '../pages/products';
+import RekapPenjualan from '../pages/rekap-penjualan';
+import StockUpdate from '../pages/stock-update';
 import PrivateRoutes from './private-routes';
 
 export function GlobalRoutes() {
@@ -32,12 +34,17 @@ export function GlobalRoutes() {
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/example" element={<ExamplePage />} />
-      <Route element={<PrivateRoutes />}>
+      <Route element={<PrivateRoutes type="user" />}>
         <Route path="/products">
           <Route index element={<ProductsPage />} />
           <Route path=":productId" element={<ProductPage />} />
         </Route>
         <Route path="/cart" element={<Cart />} />
+      </Route>
+      <Route element={<PrivateRoutes type="admin" />}>
+        <Route path="/products" element={<ProductsPage />} />
+        <Route path="/rekap-penjualan" element={<RekapPenjualan />} />
+        <Route path="/stock-update" element={<StockUpdate />} />
       </Route>
     </Routes>
   );
