@@ -42,7 +42,6 @@ export function GlobalRoutes() {
         <Route path="/cart" element={<Cart />} />
       </Route>
       <Route element={<PrivateRoutes type="admin" />}>
-        <Route path="/products" element={<ProductsPage />} />
         <Route path="/rekap-penjualan" element={<RekapPenjualan />} />
         <Route path="/stock-update" element={<StockUpdate />} />
       </Route>
