@@ -81,7 +81,14 @@ export default function ProductDetailCard(props: ProductModel) {
 
         <div className="flex gap-16 flex-col-reverse md:flex-row lg:gap-64">
           <div className="flex max-w-fit px-8 border border-baseBlack rounded-md">
-            <button onClick={onDecrease} className="hover:opacity-80">
+            <button
+              onClick={onDecrease}
+              className="hover:opacity-80"
+              disabled={qty <= 0}
+              style={{
+                cursor: qty <= 0 ? 'not-allowed' : 'pointer',
+              }}
+            >
               <Icons.Minus />
             </button>
             <input
@@ -91,8 +98,16 @@ export default function ProductDetailCard(props: ProductModel) {
               value={qty}
               onChange={onChange}
               className="p-4 border-x mx-8 border-black text-center font-sans"
+              disabled
             />
-            <button onClick={onIncrease} className="hover:opacity-80">
+            <button
+              onClick={onIncrease}
+              className="hover:opacity-80 "
+              disabled={qty >= productQty}
+              style={{
+                cursor: qty >= productQty ? 'not-allowed' : 'pointer',
+              }}
+            >
               <Icons.Plus />
             </button>
           </div>
