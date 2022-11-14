@@ -12,7 +12,7 @@ interface Props {
   data: Data;
 }
 export default function ProductCard(props: Props) {
-  const { image, category, title, price } = props.data;
+  const { image, category, title, price, id } = props.data;
   const navigate = useNavigate();
   return (
     <div
@@ -20,7 +20,7 @@ export default function ProductCard(props: Props) {
       style={{
         width: '320px',
       }}
-      onClick={() => navigate(`/products/${title}`)}
+      onClick={() => navigate(`/products/${id}`)}
     >
       <img
         src={image}

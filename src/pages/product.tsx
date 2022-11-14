@@ -10,13 +10,13 @@ export default function ProductPage() {
   const { productId } = params;
   const { products } = useSelector(selectProducts);
   const product = useMemo(
-    () => products.filter((item) => item.title === productId),
+    () => products.find((item) => item.id === parseFloat(productId!))!,
     [productId],
   );
 
   return (
     <div>
-      <ProductDetailCard {...product[0]} />
+      <ProductDetailCard {...product} />
     </div>
   );
 }
