@@ -37,7 +37,10 @@ export default function LoginPage() {
     if (data.token) {
       localStorage.setItem(
         process.env.REACT_APP_TOKEN_LOCAL_KEY as string,
-        JSON.stringify(data.token),
+        JSON.stringify({
+          token: data.token,
+          role: 'user',
+        }),
       );
       navigate('/products');
     }
@@ -47,14 +50,17 @@ export default function LoginPage() {
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       if (username === 'admin@bukapedia.com' && password === 'admin123') {
-        navigate('/admin');
+        localStorage.setItem(
+          process.env.REACT_APP_TOKEN_LOCAL_KEY as string,
+          JSON.stringify({
+            token: 'admin bukapedia ',
+            role: 'admin',
+          }),
+        );
+        navigate('/rekap-penjualan');
       } else {
         try {
-          await dispatch(useLogin({ username, password })).then(() =>
-            console.log(data),
-          );
-
-          // navigate('/products');
+          await dispatch(useLogin({ username, password }));
         } catch {}
       }
     },

@@ -2,13 +2,17 @@ import * as React from 'react';
 import { Outlet } from 'react-router-dom';
 import Navbar from '../components/nav-bar';
 import NotFound from '../pages/not-found';
-import { getToken } from '../helpers';
+import { getToken, isAdmin, isUser } from '../helpers';
 
-export default function PrivateRoutes() {
-  const token = getToken();
+interface Props {
+  type: string;
+}
+
+export default function PrivateRoutes({ type }: Props) {
+  const auth = isUser(type) ? isUser(getToken()!) : isAdmin(getToken()!);
 
   //eslint-disable-next-line
-  return token ? (
+  return auth ? (
     <>
       <Navbar auth={true} />
       <Outlet />
