@@ -35,7 +35,7 @@ export default function LoginPage() {
       isAdmin(role) && navigate('/stock-update');
     }
   }, []);
-  console.log(data);
+
   React.useEffect(() => {
     if (data.token) {
       localStorage.setItem(
