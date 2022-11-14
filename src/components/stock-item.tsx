@@ -78,7 +78,7 @@ export default function StockItem({ data, isLast }: Props) {
                 setShow(false);
               }}
             >
-              update
+              Update
             </button>
           )}
         </div>

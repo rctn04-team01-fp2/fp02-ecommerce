@@ -1,11 +1,9 @@
 import * as React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import { AppDispatch } from '../app/store';
-import {
-  selectProducts,
-  useGetProducts,
-} from '../features/product/product-slice';
+import { useGetProducts } from '../features/product/product-slice';
+import useProducts from '../hooks/use-products';
 import HomePage from '../pages';
 import Cart from '../pages/cart';
 import ExamplePage from '../pages/examples';
@@ -19,7 +17,8 @@ import PrivateRoutes from './private-routes';
 
 export function GlobalRoutes() {
   const dispatch = useDispatch<AppDispatch>();
-  const { products } = useSelector(selectProducts);
+  const { products } = useProducts();
+
   React.useEffect(() => {
     async function getProducts() {
       await dispatch(useGetProducts());
@@ -28,6 +27,7 @@ export function GlobalRoutes() {
       void getProducts();
     }
   }, []);
+
   return (
     <Routes>
       <Route path="*" element={<NotFound />} />

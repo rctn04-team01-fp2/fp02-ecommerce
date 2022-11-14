@@ -8,12 +8,15 @@ interface Data {
   price: number;
   image: string;
 }
+
 interface Props {
   data: Data;
 }
+
 export default function ProductCard(props: Props) {
   const { image, category, title, price, id } = props.data;
   const navigate = useNavigate();
+
   return (
     <div
       className="max-w-2/8 min-w-2/6 h-fit rounded-normal shadow-normal hover:shadow-hover p-8 flex gap-12 flex-col relative "

@@ -3,9 +3,9 @@ import * as React from 'react';
 import { ProductModel } from '../features/product/types';
 import * as Icons from 'react-feather';
 import { useNavigate } from 'react-router-dom';
-import { selectUser } from '../features/user/user-slice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addCart } from '../features/cart/cart-slice';
+import useUser from '../hooks/use-user';
 
 interface Props {
   product: ProductModel;
@@ -19,14 +19,14 @@ export default function ProductDetailCard(props: Props) {
     // id,
     image,
     price,
-    qty: productQty,
+    qty,
   } = props.product;
   const navigate = useNavigate();
 
-  const { token, username } = useSelector(selectUser);
+  const { token, username } = useUser();
   const dispatch = useDispatch();
 
-  const [qty, setQty] = React.useState(0);
+  const [cartQty, setQty] = React.useState(0);
 
   const onDecrease = React.useCallback(() => setQty((prev) => prev - 1), []);
   const onIncrease = React.useCallback(() => setQty((prev) => prev + 1), []);
@@ -40,12 +40,12 @@ export default function ProductDetailCard(props: Props) {
 
   const onAddCart = React.useCallback(() => {
     if (token) {
-      const product = { ...props.product, qty };
+      const product = { ...props.product, cartQty };
       dispatch(addCart({ username, product }));
     } else {
       navigate('/login');
     }
-  }, [qty, username, props.product]);
+  }, [cartQty, username, props.product]);
 
   return (
     <div className="flex flex-col shadow-sm hover:shadow-lg shadow-shadowPurple  p-64 m-64 lg:flex-row gap-32">
@@ -86,9 +86,9 @@ export default function ProductDetailCard(props: Props) {
             <button
               onClick={onDecrease}
               className="hover:opacity-80"
-              disabled={qty <= 0}
+              disabled={cartQty <= 0}
               style={{
-                cursor: qty <= 0 ? 'not-allowed' : 'pointer',
+                cursor: cartQty <= 0 ? 'not-allowed' : 'pointer',
               }}
             >
               <Icons.Minus />
@@ -97,7 +97,7 @@ export default function ProductDetailCard(props: Props) {
               id="product-qty"
               name="product-qty"
               type="number"
-              value={qty}
+              value={cartQty}
               onChange={onChange}
               className="p-4 border-x mx-8 border-black text-center font-sans"
               disabled
@@ -105,9 +105,9 @@ export default function ProductDetailCard(props: Props) {
             <button
               onClick={onIncrease}
               className="hover:opacity-80 "
-              disabled={qty >= productQty}
+              disabled={cartQty >= qty}
               style={{
-                cursor: qty >= productQty ? 'not-allowed' : 'pointer',
+                cursor: cartQty >= qty ? 'not-allowed' : 'pointer',
               }}
             >
               <Icons.Plus />
@@ -118,7 +118,7 @@ export default function ProductDetailCard(props: Props) {
               Stock :
             </p>
             <p className="font-sans font-bold text-purple text-base md:text-xl">
-              {productQty} Pcs
+              {qty} Pcs
             </p>
           </div>
         </div>
@@ -128,11 +128,12 @@ export default function ProductDetailCard(props: Props) {
             Subtotal :{' '}
           </p>
           <p className="font-sans font-bold text-2xl md:text-sm">
-            Rp {price * qty}
+            Rp {price * cartQty}
           </p>
         </div>
         <button
           onClick={onAddCart}
+          disabled={!cartQty}
           className="font-sans font-bold text-base text-baseWhite bg-purple bg-opacity-80 hover:opacity-80 px-64 py-8 rounded-md border-none w-full  md:w-fit"
         >
           Add to Card

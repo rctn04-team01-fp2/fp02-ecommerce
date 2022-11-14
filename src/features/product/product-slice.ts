@@ -1,10 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
+import { CartProductModel } from '../cart/types';
 import { ProductModel } from './types';
 
 export interface ProductState {
   products: ProductModel[];
-  sales: ProductModel[];
+  sales: CartProductModel[];
 }
 
 //https://www.w3schools.com/js/js_random.asp
@@ -45,27 +46,27 @@ export const productSlice = createSlice({
         qty: item.id === id ? qty : item.qty,
       }));
     },
-    sellUser(state, action: PayloadAction<ProductModel[]>) {
-      const userProducts = action.payload;
-
-      userProducts.map((user) => {
-        const foundProductSales = state.sales.findIndex(
-          (item) => item.id === user.id,
-        );
-        const foundProductStock = state.products.findIndex(
-          (item) => item.id === user.id,
-        );
-        //update sales product
-        if (foundProductSales >= 0) {
-          state.sales[foundProductSales].qty += user.qty;
-        } else {
-          state.sales.push(user);
+    sellUser(state, action: PayloadAction<CartProductModel[]>) {
+      const carts = action.payload;
+      //increase sales
+      const sales = state.sales.map((item) => {
+        const foundItem = carts.find((cart) => cart.id === item.id);
+        if (foundItem) {
+          return { ...item, cartQty: foundItem.cartQty + item.cartQty };
         }
-        //update product
-        if (foundProductStock >= 0) {
-          state.products[foundProductStock].qty -= user.qty;
-        }
+        return { ...item };
       });
+      //decrease product
+      const products = state.products.map((item) => {
+        const foundItem = carts.find((cart) => cart.id === item.id);
+        if (foundItem) {
+          return { ...item, qty: item.qty - foundItem.cartQty };
+        }
+        return { ...item };
+      });
+
+      state.sales = [...sales];
+      state.products = [...products];
     },
   },
   extraReducers: (builder) => {
@@ -80,7 +81,8 @@ export const productSlice = createSlice({
             const qty = Math.floor(Math.random() * 10) + 1;
             return { ...product, qty };
           });
-          return { products, sales: [] };
+          const sales = products.map((product) => ({ ...product, cartQty: 0 }));
+          return { products, sales };
         },
       )
       .addCase(useGetProducts.rejected, (state) => {

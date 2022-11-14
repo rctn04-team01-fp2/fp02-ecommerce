@@ -10,6 +10,7 @@ interface Props {
 }
 function Input(props: Props) {
   const { label, name, value, type, placeholder, onChange } = props;
+
   return (
     <span className="flex flex-col gap-8">
       <label htmlFor={name} className="text-baseGrey text-smd font-medium">

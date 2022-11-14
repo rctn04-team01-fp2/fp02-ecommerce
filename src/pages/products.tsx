@@ -1,6 +1,4 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { selectProducts } from '../features/product/product-slice';
 import ProductCard from '../components/product-card';
 import useProducts from '../hooks/use-products';
 import useGetCategories, { CategoriesType } from '../hooks/use-get-catagories';

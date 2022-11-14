@@ -1,12 +1,12 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import StockItem from '../components/stock-item';
 import { TableHead } from '../components/table-head';
-import { selectProducts } from '../features/product/product-slice';
+import useProducts from '../hooks/use-products';
 import { stockTableHead } from '../utils/table-head';
 
 export default function StockUpdate() {
-  const { products } = useSelector(selectProducts);
+  const { products } = useProducts();
+
   return (
     <div
       className="overflow-x-auto relative m-auto pb-12"
