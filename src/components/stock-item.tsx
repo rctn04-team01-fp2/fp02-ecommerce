@@ -16,7 +16,7 @@ export default function StockItem({ data, isLast }: Props) {
     <tr
       className={`bg-white dark:bg-gray-800 ${
         !isLast ? 'border-b dark:border-gray-700' : ''
-      } `}
+      }`}
     >
       <th
         scope="row"
@@ -34,7 +34,7 @@ export default function StockItem({ data, isLast }: Props) {
         />
       </th>
       <td
-        className="py-4 px-6 flex flex-wrap "
+        className="py-4 px-6 flex flex-wrap gap-8 my-8"
         style={{
           width: '300px',
         }}

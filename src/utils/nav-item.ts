@@ -15,7 +15,7 @@ export const NavItem = {
     admin: [
       {
         id: '3',
-        name: 'Stock update',
+        name: 'Stock Update',
         link: '/stock-update',
       },
       {
