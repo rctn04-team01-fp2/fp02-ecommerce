@@ -59,7 +59,7 @@ export default function StockItem({ data, isLast }: Props) {
                 ? setShow(false)
                 : setShow(true);
             }}
-            className="border-b"
+            className="border-b text-center"
           />
 
           {show && (

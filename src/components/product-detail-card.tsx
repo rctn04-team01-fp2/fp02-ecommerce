@@ -96,7 +96,7 @@ export default function ProductDetailCard(props: Props) {
             <input
               id="product-qty"
               name="product-qty"
-              type="text"
+              type="number"
               value={qty}
               onChange={onChange}
               className="p-4 border-x mx-8 border-black text-center font-sans"

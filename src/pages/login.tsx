@@ -1,28 +1,18 @@
 import * as React from 'react';
+import { Oval } from 'react-loader-spinner';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { AppDispatch } from '../app/store';
+import { colors } from '../colors';
 import Input from '../components/input';
 import { useLogin } from '../features/user/user-slice';
 import { getToken, isAdmin, isUser } from '../helpers';
+import useTextInput from '../hooks/use-text-input';
 import useUser from '../hooks/use-user';
 
 export default function LoginPage() {
-  const [username, setUsername] = React.useState('');
-  const [password, setPassword] = React.useState('');
-
-  const onChangeUsername = React.useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setUsername(e.target.value);
-    },
-    [],
-  );
-  const onChangePassword = React.useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setPassword(e.target.value);
-    },
-    [],
-  );
+  const [username, onChangeUsername] = useTextInput('');
+  const [password, onChangePassword] = useTextInput('');
 
   const dispatch = useDispatch<AppDispatch>();
   const data = useUser();
@@ -120,12 +110,23 @@ export default function LoginPage() {
                 onChange={onChangePassword}
                 placeholder="Enter your password"
               />
-              <button
-                type="submit"
-                className="font-sans font-bold text-base text-baseWhite bg-purple bg-opacity-80 hover:opacity-80 px-64 py-8 border-none w-full   rounded-small"
-              >
-                Sign In
-              </button>
+              <div className="flex items-center ">
+                <button
+                  type="submit"
+                  disabled={data.loading}
+                  className="font-sans font-bold text-base text-baseWhite bg-purple bg-opacity-80 hover:opacity-80 px-64 py-8 border-none w-full   rounded-small "
+                >
+                  Sign In
+                </button>
+                {data.loading && (
+                  <Oval
+                    height={24}
+                    width={24}
+                    secondaryColor={colors.lilac}
+                    color={colors.purple}
+                  />
+                )}
+              </div>
             </form>
           </div>
         </div>
