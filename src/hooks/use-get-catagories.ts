@@ -6,5 +6,11 @@ export type CategoriesType =
   | "women's clothing";
 
 export default function useGetCategories(): CategoriesType[] {
-  return ['electronics', 'jewelery', "men's clothing", "women's clothing"];
+  return [
+    'all',
+    'electronics',
+    'jewelery',
+    "men's clothing",
+    "women's clothing",
+  ];
 }

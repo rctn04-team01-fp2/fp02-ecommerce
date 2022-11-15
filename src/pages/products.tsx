@@ -18,10 +18,17 @@ export default function ProductsPage() {
   return (
     <>
       <h1 className="bold text-xmd font-bold ml-36 my-16">Products</h1>
-      <div className="flex w-3/4 flex-row gap-8 m-auto justify-center mb-32">
-        {categories.map((_category, index) => (
+      <div className="flex w-3/4 flex-row min-w-90  mb-32 m-auto gap-12 justify-center">
+        {categories.map((_category) => (
           <button
-            className="font-sans font-bold text-base text-baseWhite bg-purple bg-opacity-80 hover:opacity-80 px-64 py-8 border-none w-full rounded-small "
+            className={`font-sans font-bold text-base text-baseWhite  bg-opacity-80 hover:opacity-80 px-64 py-12 w-full rounded-small ${
+              category === _category
+                ? 'border-none bg-purple'
+                : 'border-purple text-purple shadow-normal '
+            } `}
+            style={{
+              borderWidth: '1px',
+            }}
             key={_category}
             onClick={() => onChangeCategories(_category)}
           >
