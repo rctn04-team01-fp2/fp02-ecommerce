@@ -9,8 +9,8 @@ export default function StockUpdate() {
 
   return (
     <div
-      className="overflow-x-auto relative m-auto pb-12"
-      style={{ width: 'fit-content', minWidth: '60%' }}
+      className="overflow-x-auto relative m-auto pb-12 mt-25"
+      style={{ width: 'fit-content', minWidth: '70%' }}
     >
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
         <TableHead data={stockTableHead} />
