@@ -5,3 +5,9 @@ export const stockTableHead: string[] = [
   'Price',
   'Stock',
 ];
+export const cartTableHead: string[] = [
+  'Item',
+  'Price',
+  'Quantity',
+  'Total Price',
+];
