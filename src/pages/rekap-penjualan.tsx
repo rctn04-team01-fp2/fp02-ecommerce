@@ -50,21 +50,23 @@ export default function RekapPenjualan() {
       style={{ width: 'fit-content', minWidth: '70%' }}
     >
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
-        <TableHead data={rekapTableHead} />
-        {!!sales.length &&
-          sales
-            .filter((item) => item.cartQty !== 0)
-            .map((item) => <RekapItem cart={item} key={item.id} />)}
-        <tr className={`bg-white dark:bg-gray-800 dark:border-gray-700`}>
-          <td></td>
-          <td></td>
-          <td>
-            <div className="">
-              <p className="text-smd">Total </p>
-              <p className="text-md  font-bold">Rp.{totals}</p>
-            </div>
-          </td>
-        </tr>
+        <TableHead data={rekapTableHead} variant="normal" />
+        <tbody>
+          {!!sales.length &&
+            sales
+              .filter((item) => item.cartQty !== 0)
+              .map((item) => <RekapItem cart={item} key={item.id} />)}
+          <tr className={`bg-white dark:bg-gray-800 dark:border-gray-700`}>
+            <td></td>
+            <td></td>
+            <td>
+              <div className="">
+                <p className="text-smd">Total </p>
+                <p className="text-md  font-bold">Rp.{totals}</p>
+              </div>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
   );

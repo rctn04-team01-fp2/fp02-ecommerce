@@ -26,7 +26,7 @@ function CartItem(props: { cart: CartProductModel }) {
     <tr className="bg-white dark:bg-gray-800 border-b dark:border-gray-700 ">
       <th
         scope="row"
-        className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white "
+        className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white text"
       >
         <div className="flex flex-wrap items-center gap-12">
           <img
@@ -42,9 +42,12 @@ function CartItem(props: { cart: CartProductModel }) {
           <h3>{cart.title}</h3>
         </div>
       </th>
-      <td className="py-4 px-6 ">{cart.price}</td>
-      <td key={cart.id} className="py-4 px-6 w-fit">
-        <div className="flex gap-12">
+      <td className="py-4 px-6 text-center">{cart.price}</td>
+      <td
+        key={cart.id}
+        className="py-4 px-6  flex items-center mt-fifteen pl-32"
+      >
+        <div className="flex gap-12 m-auto">
           <div className="border w-fit flex rounded-small">
             <button
               onClick={onDecrease}
@@ -74,19 +77,18 @@ function CartItem(props: { cart: CartProductModel }) {
           </button>
         </div>
       </td>
-      <td className="py-4 px-6">{cartQty * cart.price}</td>
+      <td className="py-4 px-6 text-center">{cartQty * cart.price}</td>
       <td>
-        {cartQty !== cart.cartQty && (
-          <button
-            className="font-sans font-bold text-base text-purple hover:opacity-80 px-8 py-4  shadow-normal  rounded-small border-purple"
-            style={{
-              borderWidth: '1px',
-            }}
-            onClick={onUpdateCart}
-          >
-            Update
-          </button>
-        )}
+        <button
+          className="font-sans font-bold text-base text-purple hover:opacity-80 px-8 py-4  shadow-normal  rounded-small border-purple"
+          style={{
+            borderWidth: '1px',
+          }}
+          onClick={onUpdateCart}
+          disabled={cartQty !== cart.cartQty}
+        >
+          Update
+        </button>
       </td>
     </tr>
   );

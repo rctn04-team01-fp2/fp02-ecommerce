@@ -10,6 +10,7 @@ export const cartTableHead: string[] = [
   'Price',
   'Quantity',
   'Total Price',
+  '',
 ];
 
 export const rekapTableHead: string[] = ['Product', 'Price', 'Total Income'];

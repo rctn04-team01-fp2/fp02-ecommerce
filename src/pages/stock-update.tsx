@@ -13,7 +13,7 @@ export default function StockUpdate() {
       style={{ width: 'fit-content', minWidth: '70%' }}
     >
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
-        <TableHead data={stockTableHead} />
+        <TableHead data={stockTableHead} variant="normal" />
         <tbody>
           {products.map((product, index) => (
             <StockItem

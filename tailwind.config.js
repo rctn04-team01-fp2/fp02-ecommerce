@@ -100,6 +100,7 @@ module.exports = {
       32: '32px',
       36: '36px',
       64: '64px',
+      fifteen: '15%',
     },
     fontFamily: {
       sans: ['DM Sans', 'Poppins', 'sans-serif'],
