@@ -42,6 +42,7 @@ export default function ProductDetailCard(props: Props) {
     if (token) {
       const product = { ...props.product, cartQty };
       dispatch(addCart({ username, product }));
+      navigate('/products');
     } else {
       navigate('/login');
     }
