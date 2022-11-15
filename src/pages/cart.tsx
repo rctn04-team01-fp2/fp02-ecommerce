@@ -8,6 +8,7 @@ import * as React from 'react';
 import { TableHead } from '../components/table-head';
 import { cartTableHead } from '../utils/table-head';
 import { useNavigate } from 'react-router-dom';
+import CatAnimation from '../components/cat-animated';
 
 function CartItem(props: { cart: CartProductModel }) {
   const { cart } = props;
@@ -104,7 +105,6 @@ export default function Cart() {
     );
     return temp;
   }, [carts]);
-  console.log(totals);
 
   return (
     <div
@@ -136,7 +136,7 @@ export default function Cart() {
       )}
       {!carts.length && (
         <div className="flex flex-col items-center justify-center min-h-screen gap-12">
-          {' '}
+          <CatAnimation />
           There is no items in the cart
           <button
             onClick={() => navigate('/products')}
