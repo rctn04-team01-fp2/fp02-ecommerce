@@ -22,7 +22,7 @@ function CartItem(props: { cart: CartProductModel }) {
   } = useCartItemAction({ username, cart });
 
   return (
-    <tr className={`bg-white dark:bg-gray-800 border-b dark:border-gray-700`}>
+    <tr className="bg-white dark:bg-gray-800 border-b dark:border-gray-700 ">
       <th
         scope="row"
         className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white "
@@ -108,7 +108,7 @@ export default function Cart() {
 
   return (
     <div
-      className="overflow-x-auto  relative m-auto pb-12 w-100 flex flex-col"
+      className="overflow-x-auto  relative m-auto pb-12 w-100 flex flex-col mt-25"
       style={{ width: 'fit-content', minWidth: '70%' }}
     >
       {!!carts.length && (
