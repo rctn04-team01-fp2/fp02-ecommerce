@@ -9,8 +9,14 @@ import * as React from 'react';
 function CartItem(props: { cart: CartProductModel }) {
   const { cart } = props;
   const { username } = useUser();
-  const { cartQty, onDecrease, onIncrease, onRemoveCart, onUpdateCart } =
-    useCartItemAction({ username, cart });
+  const {
+    cartQty,
+    onDecrease,
+    onIncrease,
+    onRemoveCart,
+    onUpdateCart,
+    onChangeCartQty,
+  } = useCartItemAction({ username, cart });
 
   return (
     <div key={cart.id}>
@@ -21,12 +27,7 @@ function CartItem(props: { cart: CartProductModel }) {
       <button onClick={onDecrease} disabled={cartQty <= 0}>
         <Icons.Minus />
       </button>
-      <input
-        type="number"
-        min={0}
-        value={cartQty}
-        // onChange={(e) => setCartQty(parseFloat(e.target.value))}
-      />
+      <input type="number" min={0} value={cartQty} onChange={onChangeCartQty} />
       <button onClick={onIncrease} disabled={cart.qty <= cartQty}>
         <Icons.Plus />
       </button>

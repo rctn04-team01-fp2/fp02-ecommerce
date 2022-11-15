@@ -13,6 +13,10 @@ export default function useCartItemAction({
   const dispatch = useDispatch();
   const [cartQty, setCartQty] = React.useState(cart.cartQty);
 
+  const onChangeCartQty = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setCartQty(parseFloat(e.target.value))
+  }, [])
+
   const onIncrease = React.useCallback(() => {
     setCartQty((prev) => prev + 1);
   }, []);
@@ -24,16 +28,16 @@ export default function useCartItemAction({
   const onRemoveCart = React.useCallback(() => {
     const product = { ...cart, cartQty };
     dispatch(removeCartProduct({ username, product }));
-  }, [username, removeCartProduct]);
+  }, [username, removeCartProduct, removeCartProduct, dispatch]);
 
   const onUpdateCart = React.useCallback(() => {
     const product = { ...cart, cartQty };
     dispatch(updateCart({ username, product }));
-  }, [username, cartQty, cart]);
+  }, [username, cartQty, cart, updateCart, dispatch]);
 
   const actions = React.useMemo(
-    () => ({ cartQty, onIncrease, onDecrease, onRemoveCart, onUpdateCart }),
-    [],
+    () => ({ cartQty, onIncrease, onDecrease, onRemoveCart, onUpdateCart, onChangeCartQty }),
+    [cartQty, onDecrease, onIncrease, onRemoveCart, onUpdateCart, onChangeCartQty],
   );
   return actions;
 }
