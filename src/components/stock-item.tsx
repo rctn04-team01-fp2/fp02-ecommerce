@@ -1,5 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import { colors } from '../colors';
 import { updateAdmin } from '../features/product/product-slice';
 import { ProductModel } from '../features/product/types';
 import useTextInput from '../hooks/use-text-input';
@@ -10,8 +12,17 @@ interface Props {
 }
 export default function StockItem({ data, isLast }: Props) {
   const [value, onChangeValue] = useTextInput(data.qty);
-  // const [show, setShow] = useState(false);
   const dispatch = useDispatch();
+
+  const onUpdateProduct = React.useCallback(() => {
+    dispatch(
+      updateAdmin({
+        ...data,
+        qty: Number(value),
+      }),
+    );
+    toast.success(`Product ${data.title} berhasil diupdate`);
+  }, []);
 
   return (
     <tr
@@ -54,37 +65,33 @@ export default function StockItem({ data, isLast }: Props) {
             value={value}
             min="0"
             max="1000"
-            // onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            //   setValue(Number(e.target.value));
-            //   // Number(e.target.value) === data.qty
-            //   //   ? setShow(false)
-            //   //   : setShow(true);
-            // }}
             onChange={onChangeValue}
             className="border-b text-center"
           />
 
-          {/* {show && ( */}
           <button
             className="font-sans font-bold text-base text-purple hover:opacity-80 px-8 py-4  shadow-normal  rounded-small border-purple"
             style={{
               borderWidth: '1px',
-              cursor: value === data.qty ? 'not-allowed' : 'pointer',
+              ...(value === data.qty || value < 0
+                ? {
+                    backgroundColor: colors.baseGrey,
+                    color: colors.baseWhite,
+                    borderColor: colors.baseGrey,
+                    opacity: 0.5,
+                    cursor: 'not-allowed',
+                  }
+                : {
+                    backgroundColor: 'white',
+                    color: colors.purple,
+                    borderColor: colors.purple,
+                  }),
             }}
             disabled={value === data.qty}
-            onClick={() => {
-              dispatch(
-                updateAdmin({
-                  ...data,
-                  qty: Number(value),
-                }),
-              );
-              // setShow(false);
-            }}
+            onClick={onUpdateProduct}
           >
             Update
           </button>
-          {/* )} */}
         </div>
       </td>
     </tr>

@@ -19,9 +19,9 @@ export default function Navbar(props: Props) {
         {data.map((item: any) =>
           //eslint-disable-next-line
           item.name === 'Logout' ? (
-            <NavLink to={item.link} key={item.id} onClick={onLogout}>
+            <button style={{ cursor: 'pointer' }} onClick={onLogout}>
               {item.name}
-            </NavLink>
+            </button>
           ) : (
             <NavLink to={item.link} key={item.id}>
               {item.name}

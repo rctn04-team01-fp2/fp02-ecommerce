@@ -43,7 +43,7 @@ export default function RekapPenjualan() {
       .toFixed(2);
     return temp;
   }, [sales]);
-  console.log(totals);
+
   return (
     <div
       className="overflow-x-auto  relative m-auto mt-25 pb-12 w-100 flex flex-col"

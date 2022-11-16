@@ -9,6 +9,8 @@ import { TableHead } from '../components/table-head';
 import { cartTableHead } from '../utils/table-head';
 import { useNavigate } from 'react-router-dom';
 import CatAnimation from '../components/cat-animated';
+import { toast } from 'react-toastify';
+import { colors } from '../colors';
 
 function CartItem(props: { cart: CartProductModel }) {
   const { cart } = props;
@@ -21,6 +23,14 @@ function CartItem(props: { cart: CartProductModel }) {
     onUpdateCart,
     onChangeCartQty,
   } = useCartItemAction({ username, cart });
+
+  React.useEffect(() => {
+    if (cart.qty === cartQty) {
+      toast.error(`${cart.title} telah mencapai batas maksimum`);
+    }
+  }, [cartQty]);
+
+  const disabledUpdate = cartQty > cart.qty || cartQty === cart.cartQty;
 
   return (
     <tr className="bg-white dark:bg-gray-800 border-b dark:border-gray-700 ">
@@ -51,7 +61,7 @@ function CartItem(props: { cart: CartProductModel }) {
           <div className="border w-fit flex rounded-small">
             <button
               onClick={onDecrease}
-              disabled={cartQty <= 0}
+              disabled={cartQty <= 1}
               className="border-r"
             >
               <Icons.Minus />
@@ -60,6 +70,7 @@ function CartItem(props: { cart: CartProductModel }) {
               className="text-center "
               type="number"
               min={0}
+              disabled
               max={1000}
               value={cartQty}
               onChange={onChangeCartQty}
@@ -80,12 +91,29 @@ function CartItem(props: { cart: CartProductModel }) {
       <td className="py-4 px-6 text-center">{cartQty * cart.price}</td>
       <td>
         <button
-          className="font-sans font-bold text-base text-purple hover:opacity-80 px-8 py-4  shadow-normal  rounded-small border-purple"
+          className={`font-sans font-bold text-base  hover:opacity-80 px-8 py-4  shadow-normal  rounded-small ${
+            disabledUpdate
+              ? 'text-black bg-baseDisabled border-baseDisabled cursor-not-allowed'
+              : 'text-purple border-purple'
+          } `}
           style={{
             borderWidth: '1px',
+            ...(disabledUpdate
+              ? {
+                  backgroundColor: colors.baseGrey,
+                  color: colors.baseWhite,
+                  borderColor: colors.baseGrey,
+                  opacity: 0.5,
+                  cursor: 'not-allowed',
+                }
+              : {
+                  backgroundColor: 'white',
+                  color: colors.purple,
+                  borderColor: colors.purple,
+                }),
           }}
           onClick={onUpdateCart}
-          disabled={cartQty !== cart.cartQty}
+          disabled={disabledUpdate}
         >
           Update
         </button>

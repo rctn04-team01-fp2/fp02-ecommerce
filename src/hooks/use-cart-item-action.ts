@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
 import { removeCartProduct, updateCart } from '../features/cart/cart-slice';
 import { CartProductModel } from '../features/cart/types';
 
@@ -29,19 +30,42 @@ export default function useCartItemAction({
     setCartQty((prev) => prev - 1);
   }, []);
 
-  const onRemoveCart = React.useCallback(() => {
-    const product = { ...cart, cartQty };
-    dispatch(removeCartProduct({ username, product }));
-    toast.success(`${cart.title} berhasil dihapus dari keranjang`, {
-      position: 'top-right',
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: 'light',
-    });
+  const onRemoveCart = React.useCallback(async () => {
+    try {
+      const result = await Swal.fire({
+        title: `Apakah anda yakin untuk menghapus ${cart.title} ini`,
+        showCancelButton: true,
+        cancelButtonText: 'Batal',
+        cancelButtonColor: 'red',
+        confirmButtonText: 'Yakin',
+        icon: 'warning',
+      });
+      if (result.isConfirmed) {
+        const product = { ...cart, cartQty };
+        dispatch(removeCartProduct({ username, product }));
+        toast.success(`${cart.title} berhasil dihapus dari keranjang`, {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
+      }
+    } catch {
+      toast.error(`${cart.title} gagal dihapus dari keranjang`, {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+    }
   }, [username, removeCartProduct, removeCartProduct, dispatch]);
 
   const onUpdateCart = React.useCallback(() => {
