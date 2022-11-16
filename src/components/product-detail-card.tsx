@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addCart } from '../features/cart/cart-slice';
 import useUser from '../hooks/use-user';
+import { toast } from 'react-toastify';
 
 interface Props {
   product: ProductModel;
@@ -42,6 +43,16 @@ export default function ProductDetailCard(props: Props) {
     if (token) {
       const product = { ...props.product, cartQty };
       dispatch(addCart({ username, product }));
+      toast.success(`${product.title} ditambahkan ke keranjang`, {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
       navigate('/products');
     } else {
       navigate('/login');

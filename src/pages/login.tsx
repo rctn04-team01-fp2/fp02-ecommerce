@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Oval } from 'react-loader-spinner';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { AppDispatch } from '../app/store';
 import { colors } from '../colors';
 import Input from '../components/input';
@@ -50,10 +51,30 @@ export default function LoginPage() {
             role: 'admin',
           }),
         );
+        toast.success('Admin berhasil login', {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
         navigate('/stock-update');
       } else {
         try {
           await dispatch(useLogin({ username, password }));
+          toast.success('Login berhasil', {
+            position: 'top-right',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+          });
         } catch {}
       }
     },

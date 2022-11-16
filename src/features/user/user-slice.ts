@@ -20,6 +20,7 @@ export const useLogin = createAsyncThunk(
     });
     const result: { token: string } = await response.json();
     const _result = { ...result, username: body.username };
+
     return _result;
   },
 );
@@ -46,6 +47,7 @@ export const userSlice = createSlice({
       })
       .addCase(useLogin.fulfilled, (state, action) => {
         const token = action.payload.token;
+
         return {
           loading: false,
           isAdmin: false,
