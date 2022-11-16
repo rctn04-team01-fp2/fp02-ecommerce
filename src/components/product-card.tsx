@@ -44,7 +44,7 @@ export default function ProductCard(props: Props) {
       <p className="text-16 font-medium p-2  text-ellipsis whitespace-nowrap overflow-hidden">
         {title}
       </p>
-      <p>Rp. {price}</p>
+      <p> ${price}</p>
     </div>
   );
 }

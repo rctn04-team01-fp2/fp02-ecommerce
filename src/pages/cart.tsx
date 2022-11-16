@@ -126,7 +126,7 @@ export default function Cart() {
             }}
           >
             <p className="text-smd">Total </p>
-            <p className="text-md  font-bold">Rp.{totals}</p>
+            <p className="text-md  font-bold">${totals}</p>
             <button
               onClick={onCheckout}
               className="font-sans font-bold text-base text-baseWhite bg-purple bg-opacity-80 hover:opacity-80 px-8 py-8 rounded-md border-none w-fit"

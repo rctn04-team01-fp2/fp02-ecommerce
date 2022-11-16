@@ -81,7 +81,7 @@ export default function ProductDetailCard(props: Props) {
           {title}
         </h2>
         <p className="font-sans font-normal text-sm text-baseGrey sm:text-3xl">
-          Rp {price}
+          ${price}
         </p>
         <p className="font-sans font-bold underline text-base text-purple sm:text-xl">
           Product Description
@@ -140,7 +140,7 @@ export default function ProductDetailCard(props: Props) {
             Subtotal :{' '}
           </p>
           <p className="font-sans font-bold text-2xl md:text-sm">
-            Rp {price * cartQty}
+            ${price * cartQty}
           </p>
         </div>
         <button
