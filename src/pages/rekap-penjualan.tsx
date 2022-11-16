@@ -62,7 +62,7 @@ export default function RekapPenjualan() {
             <td>
               <div className="">
                 <p className="text-smd">Total </p>
-                <p className="text-md  font-bold">Rp.{totals}</p>
+                <p className="text-md  font-bold">${totals}</p>
               </div>
             </td>
           </tr>
