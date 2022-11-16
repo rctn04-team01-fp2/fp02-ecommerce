@@ -38,20 +38,24 @@ export default function ProductsPage() {
       </div>
       <div className="flex-wrap gap-64 row-gap-25 flex-row flex justify-center">
         {category === 'all'
-          ? products.map((product) => (
-              <ProductCard
-                data={{
-                  id: product.id,
-                  category: product.category,
-                  title: product.title,
-                  price: product.price,
-                  image: product.image,
-                }}
-                key={product.id}
-              />
-            ))
+          ? products
+              .filter((product) => !!product.qty)
+              .map((product) => (
+                <ProductCard
+                  data={{
+                    id: product.id,
+                    category: product.category,
+                    title: product.title,
+                    price: product.price,
+                    image: product.image,
+                  }}
+                  key={product.id}
+                />
+              ))
           : products
-              .filter((product) => product.category === category)
+              .filter(
+                (product) => product.category === category && !!product.qty,
+              )
               .map((product) => (
                 <ProductCard
                   data={{

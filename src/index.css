@@ -1,9 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-tbody tr:first-child {
-  border-top: 10px solid white;
-
-  outline: 1px solid black;
-}

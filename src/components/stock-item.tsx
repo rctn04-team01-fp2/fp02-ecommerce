@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { updateAdmin } from '../features/product/product-slice';
 import { ProductModel } from '../features/product/types';
+import useTextInput from '../hooks/use-text-input';
 
 interface Props {
   data: ProductModel;
   isLast: boolean;
 }
 export default function StockItem({ data, isLast }: Props) {
-  const [value, setValue] = useState(data.qty);
-  const [show, setShow] = useState(false);
+  const [value, onChangeValue] = useTextInput(data.qty);
+  // const [show, setShow] = useState(false);
   const dispatch = useDispatch();
 
   return (
@@ -53,34 +54,37 @@ export default function StockItem({ data, isLast }: Props) {
             value={value}
             min="0"
             max="1000"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setValue(Number(e.target.value));
-              Number(e.target.value) === data.qty
-                ? setShow(false)
-                : setShow(true);
-            }}
+            // onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            //   setValue(Number(e.target.value));
+            //   // Number(e.target.value) === data.qty
+            //   //   ? setShow(false)
+            //   //   : setShow(true);
+            // }}
+            onChange={onChangeValue}
             className="border-b text-center"
           />
 
-          {show && (
-            <button
-              className="font-sans font-bold text-base text-purple hover:opacity-80 px-8 py-4  shadow-normal  rounded-small border-purple"
-              style={{
-                borderWidth: '1px',
-              }}
-              onClick={() => {
-                dispatch(
-                  updateAdmin({
-                    ...data,
-                    qty: Number(value),
-                  }),
-                );
-                setShow(false);
-              }}
-            >
-              Update
-            </button>
-          )}
+          {/* {show && ( */}
+          <button
+            className="font-sans font-bold text-base text-purple hover:opacity-80 px-8 py-4  shadow-normal  rounded-small border-purple"
+            style={{
+              borderWidth: '1px',
+              cursor: value === data.qty ? 'not-allowed' : 'pointer',
+            }}
+            disabled={value === data.qty}
+            onClick={() => {
+              dispatch(
+                updateAdmin({
+                  ...data,
+                  qty: Number(value),
+                }),
+              );
+              // setShow(false);
+            }}
+          >
+            Update
+          </button>
+          {/* )} */}
         </div>
       </td>
     </tr>
