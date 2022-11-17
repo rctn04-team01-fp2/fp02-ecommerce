@@ -31,17 +31,17 @@ export const NavItem = {
     ],
     user: [
       {
-        id: '3',
+        id: '6',
         name: 'Products',
         link: '/products',
       },
       {
-        id: '4',
+        id: '7',
         name: 'Cart',
         link: '/cart',
       },
       {
-        id: '5',
+        id: '8',
         name: 'Logout',
         link: '/',
       },
