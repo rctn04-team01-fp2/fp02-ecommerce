@@ -2,13 +2,13 @@ import * as React from 'react';
 import { Oval } from 'react-loader-spinner';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { AppDispatch } from '../app/store';
 import { colors } from '../colors';
 import Input from '../components/input';
 import { useLogin } from '../features/user/user-slice';
 import { getToken, isAdmin, isUser } from '../helpers';
 import useTextInput from '../hooks/use-text-input';
+import useToast from '../hooks/use-toast';
 import useUser from '../hooks/use-user';
 
 export default function LoginPage() {
@@ -18,6 +18,7 @@ export default function LoginPage() {
   const dispatch = useDispatch<AppDispatch>();
   const data = useUser();
   const navigate = useNavigate();
+  const { fireToast } = useToast();
 
   React.useEffect(() => {
     const role = getToken();
@@ -51,30 +52,12 @@ export default function LoginPage() {
             role: 'admin',
           }),
         );
-        toast.success('Admin berhasil login', {
-          position: 'top-right',
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-        });
+        fireToast('success', 'Admin berhasil login');
         navigate('/stock-update');
       } else {
         try {
           await dispatch(useLogin({ username, password }));
-          toast.success('Login berhasil', {
-            position: 'top-right',
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'light',
-          });
+          fireToast('success', 'Login berhasil');
         } catch {}
       }
     },

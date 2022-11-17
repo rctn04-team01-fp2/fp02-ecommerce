@@ -1,10 +1,10 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { toast } from 'react-toastify';
 import { colors } from '../colors';
 import { updateAdmin } from '../features/product/product-slice';
 import { ProductModel } from '../features/product/types';
 import useTextInput from '../hooks/use-text-input';
+import useToast from '../hooks/use-toast';
 
 interface Props {
   data: ProductModel;
@@ -13,6 +13,7 @@ interface Props {
 export default function StockItem({ data, isLast }: Props) {
   const [value, onChangeValue] = useTextInput(data.qty);
   const dispatch = useDispatch();
+  const { fireToast } = useToast();
 
   const onUpdateProduct = React.useCallback(() => {
     dispatch(
@@ -21,7 +22,8 @@ export default function StockItem({ data, isLast }: Props) {
         qty: Number(value),
       }),
     );
-    toast.success(`Product ${data.title} berhasil diupdate`);
+
+    fireToast('success', `Product ${data.title} berhasil diupdate`);
   }, []);
 
   return (

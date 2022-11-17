@@ -4,16 +4,17 @@ import * as Icons from 'react-feather';
 import { CartProductModel } from '../features/cart/types';
 import useCheckout from '../hooks/use-checkout';
 import useCartItemAction from '../hooks/use-cart-item-action';
+import useToast from '../hooks/use-toast';
 import * as React from 'react';
 import { TableHead } from '../components/table-head';
 import { cartTableHead } from '../utils/table-head';
 import { useNavigate } from 'react-router-dom';
 import CatAnimation from '../components/cat-animated';
-import { toast } from 'react-toastify';
 import { colors } from '../colors';
 
 function CartItem(props: { cart: CartProductModel }) {
   const { cart } = props;
+  const { fireToast } = useToast();
   const { username } = useUser();
   const {
     cartQty,
@@ -26,7 +27,7 @@ function CartItem(props: { cart: CartProductModel }) {
 
   React.useEffect(() => {
     if (cart.qty === cartQty) {
-      toast.error(`${cart.title} telah mencapai batas maksimum`);
+      fireToast('error', `${cart.title} telah mencapai batas maksimum`);
     }
   }, [cartQty]);
 

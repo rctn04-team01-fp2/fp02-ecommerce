@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useDispatch } from 'react-redux';
 import { sellUser } from '../features/product/product-slice';
 import { clearCart } from '../features/cart/cart-slice';
-import { toast } from 'react-toastify';
+import useToast from './use-toast';
 import Swal from 'sweetalert2';
 
 interface Props {
@@ -14,6 +14,7 @@ interface Props {
 export default function useCheckout(props: Props) {
   const { carts, username } = props;
   const dispatch = useDispatch();
+  const { fireToast } = useToast();
 
   const onCheckout = React.useCallback(async () => {
     const result = await Swal.fire({
@@ -29,16 +30,7 @@ export default function useCheckout(props: Props) {
 
       dispatch(clearCart({ username }));
 
-      toast.success('Barang anda berhasil dicheckout', {
-        position: 'top-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-      });
+      fireToast('success', 'Barang anda berhasil dicheckout');
     }
   }, [carts]);
   return { onCheckout };
