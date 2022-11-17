@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { colors } from '../colors';
 import { updateAdmin } from '../features/product/product-slice';
@@ -12,6 +12,7 @@ interface Props {
 }
 export default function StockItem({ data, isLast }: Props) {
   const [value, onChangeValue] = useTextInput(data.qty);
+  const [isDisable, setIsDisable] = useState(true);
   const dispatch = useDispatch();
   const { fireToast } = useToast();
 
@@ -22,9 +23,9 @@ export default function StockItem({ data, isLast }: Props) {
         qty: Number(value),
       }),
     );
-
+    setIsDisable(true);
     fireToast('success', `Product ${data.title} berhasil diupdate`);
-  }, []);
+  }, [value]);
 
   return (
     <tr
@@ -67,7 +68,12 @@ export default function StockItem({ data, isLast }: Props) {
             value={value}
             min="0"
             max="1000"
-            onChange={onChangeValue}
+            onChange={(e) => {
+              onChangeValue(e);
+              Number(e.target.value) === data.qty
+                ? setIsDisable(true)
+                : setIsDisable(false);
+            }}
             className="border-b text-center"
           />
 
@@ -75,7 +81,7 @@ export default function StockItem({ data, isLast }: Props) {
             className="font-sans font-bold text-base text-purple hover:opacity-80 px-8 py-4  shadow-normal  rounded-small border-purple"
             style={{
               borderWidth: '1px',
-              ...(value === data.qty || value < 0
+              ...(isDisable || value < 0
                 ? {
                     backgroundColor: colors.baseGrey,
                     color: colors.baseWhite,
@@ -89,7 +95,7 @@ export default function StockItem({ data, isLast }: Props) {
                     borderColor: colors.purple,
                   }),
             }}
-            disabled={value === data.qty}
+            disabled={isDisable}
             onClick={onUpdateProduct}
           >
             Update
