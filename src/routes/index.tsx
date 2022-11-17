@@ -38,12 +38,15 @@ export function GlobalRoutes() {
         <Route path="/products">
           <Route index element={<ProductsPage />} />
           <Route path=":productId" element={<ProductPage />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
         <Route path="/cart" element={<Cart />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
       <Route element={<PrivateRoutes type="admin" />}>
         <Route path="/rekap-penjualan" element={<RekapPenjualan />} />
         <Route path="/stock-update" element={<StockUpdate />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );
